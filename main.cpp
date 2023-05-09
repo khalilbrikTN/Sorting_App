@@ -1,20 +1,11 @@
+#include "mainwindow.h"
 
-#include "LL.hpp"
-#include <iostream>
+#include <QApplication>
 
-
-int main() {
-    // insert code here...
-    LinkedList list;
-    list.add(5);
-    list.add(7);
-    list.add(3);
-    list.add(9);
-    cout<<"Original List"<<endl;
-    list.ShowList();
-    cout<<"Sorted List "<<endl;
-    list.sort();
-    list.ShowList();
-    
-    return 0;
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
 }
