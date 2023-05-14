@@ -3,6 +3,14 @@
 #include <QRandomGenerator>
 #include <QMessageBox>
 #include <chrono>
+#include <vector>
+#include <sstream>
+#include <random>
+
+using namespace std;
+
+std::vector<int> numbers;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -15,21 +23,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_GenerateDataset_clicked()
-{
-    QString num=ui->textEdit->toPlainText();
-    size=num.toInt();
-    ui->DatasetSize->setText("The Dataset size is: "+num);
-    QRandomGenerator generator = QRandomGenerator::securelySeeded();
 
-       // Generate a list of integers
-       for (int i = 0; i < size; ++i)
-       {
-           int number = generator.generate();
-           numbers.append(number);
-       }
-       ui->textEdit->clear();
-}
 
 
 void MainWindow::on_NormalSearch_clicked()
@@ -87,6 +81,106 @@ void MainWindow::on_Findit_clicked()
            this,
            tr("Application Name"),
            tr("An information message.") );
+
+}
+
+
+void merge(std::vector<int>& array, int const left, int const mid, int const right)
+{
+    auto const subArrayOne = mid - left + 1;
+    auto const subArrayTwo = right - mid;
+
+    // Create temp vectors
+    std::vector<int> leftArray(subArrayOne),
+         rightArray(subArrayTwo);
+
+    // Copy data to temp vectors leftArray[] and rightArray[]
+    for (auto i = 0; i < subArrayOne; i++)
+        leftArray[i] = array[left + i];
+    for (auto j = 0; j < subArrayTwo; j++)
+        rightArray[j] = array[mid + 1 + j];
+
+    auto indexOfSubArrayOne = 0, // Initial index of first sub-array
+        indexOfSubArrayTwo = 0; // Initial index of second sub-array
+    int indexOfMergedArray = left; // Initial index of merged array
+
+    // Merge the temp vectors back into array[left..right]
+    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
+        if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
+            array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+            indexOfSubArrayOne++;
+        }
+        else {
+            array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+            indexOfSubArrayTwo++;
+        }
+        indexOfMergedArray++;
+    }
+    // Copy the remaining elements of
+    // left[], if there are any
+    while (indexOfSubArrayOne < subArrayOne) {
+        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+        indexOfSubArrayOne++;
+        indexOfMergedArray++;
+    }
+    // Copy the remaining elements of
+    // right[], if there are any
+    while (indexOfSubArrayTwo < subArrayTwo) {
+        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+        indexOfSubArrayTwo++;
+        indexOfMergedArray++;
+    }
+}
+
+void mergeSort(std::vector<int>& array, int const begin, int const end)
+{
+    if (begin >= end)
+        return; // Returns recursively
+
+    auto mid = begin + (end - begin) / 2;
+    mergeSort(array, begin, mid);
+    mergeSort(array, mid + 1, end);
+    merge(array, begin, mid, end);
+}
+
+
+
+void MainWindow::on_MergeSort_clicked()
+{
+
+    string data = (ui->data->text()).toStdString();
+    vector<int> list = stringToIntVector(data);
+
+    mergeSort(numbers,0,numbers.size()-1);
+
+    QString output = "";
+    for(int i = 0;i<int(list.size());i++){
+        output+=QString::number(list.at(i));
+        output+=" ,";
+    };
+
+}
+
+
+
+void MainWindow::on_generate_clicked()
+{
+    int size=(ui->size->text()).toInt();
+    QString outputing = "";
+
+    ui->DatasetSize->setText("The Dataset size is: " + size);
+
+    QRandomGenerator generator = QRandomGenerator::securelySeeded();
+
+   // Generate a list of integers
+   for (int i = 0; i < size; ++i)
+   {
+       int number = generator.generate();
+       numbers.push_back(number);
+       outputing+=QString::number(number);
+
+   }
+   ui->data->setText(outputing);
 
 }
 

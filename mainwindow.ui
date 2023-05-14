@@ -43,7 +43,7 @@
      <string>Binary Seach</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="GenerateDataset">
+   <widget class="QPushButton" name="generate">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -54,16 +54,6 @@
     </property>
     <property name="text">
      <string>Generate Dataset</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>469</y>
-      <width>161</width>
-      <height>31</height>
-     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -131,8 +121,8 @@
    <widget class="QLabel" name="DatasetSize">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>50</y>
+      <x>580</x>
+      <y>80</y>
       <width>151</width>
       <height>31</height>
      </rect>
@@ -167,9 +157,9 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>10</x>
       <y>400</y>
-      <width>111</width>
+      <width>131</width>
       <height>21</height>
      </rect>
     </property>
@@ -193,14 +183,50 @@
    <widget class="QLabel" name="sortingAlgorithm">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>160</y>
+      <x>590</x>
+      <y>100</y>
       <width>151</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="data">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>470</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>DATA</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="size">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>400</y>
+      <width>113</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>20</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Data Size</string>
     </property>
    </widget>
   </widget>
@@ -210,7 +236,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

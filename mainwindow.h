@@ -24,6 +24,10 @@ private slots:
 
     void on_Findit_clicked();
 
+    void on_MergeSort_clicked();
+
+    void on_generate_clicked();
+
 private:
     Ui::MainWindow *ui;
     int size;
