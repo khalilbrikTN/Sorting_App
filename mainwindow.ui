@@ -43,7 +43,7 @@
      <string>Binary Seach</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="GeberateDataset">
+   <widget class="QPushButton" name="GenerateDataset">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -128,13 +128,13 @@
      <string>Sort Using STL Sort</string>
     </property>
    </widget>
-   <widget class="QLabel" name="showMethods">
+   <widget class="QLabel" name="DatasetSize">
     <property name="geometry">
      <rect>
       <x>590</x>
       <y>50</y>
-      <width>141</width>
-      <height>211</height>
+      <width>151</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -175,6 +175,32 @@
     </property>
     <property name="text">
      <string>Input Dataset Size</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="SearchAlgorithm">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>100</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="sortingAlgorithm">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>160</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
