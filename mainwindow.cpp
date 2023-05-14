@@ -6,10 +6,13 @@
 #include <vector>
 #include <sstream>
 #include <random>
+#include <QList>
+
 
 using namespace std;
 
-std::vector<int> numbers;
+vector<int> numbers;
+int Size;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -62,49 +65,26 @@ bool MainWindow::BinarySearch(QList<int> list,int key,int start,int end)
     }
 }
 
-void MainWindow::on_Findit_clicked()
-{
-    key=ui->textEdit_2->toPlainText().toInt();
 
-    if(useBinarySearch)
-    {
-        std::chrono::steady_clock::time_point now =std::chrono::steady_clock::now();
-        BinarySearch(this->numbers,key,0,this->numbers.size()-1);
-        std::chrono::steady_clock::time_point then=std::chrono::steady_clock::now();
-        this->sortTime=std::chrono::duration_cast<std::chrono::nanoseconds>(then-now).count();
-    }
-    if(useNormalSearch)
-    {
-
-    }
-    QMessageBox::information(
-           this,
-           tr("Application Name"),
-           tr("An information message.") );
-
-}
-
-
-void merge(std::vector<int>& array, int const left, int const mid, int const right)
+void merge(QList<int>& array, int const left, int const mid, int const right)
 {
     auto const subArrayOne = mid - left + 1;
     auto const subArrayTwo = right - mid;
 
-    // Create temp vectors
-    std::vector<int> leftArray(subArrayOne),
-         rightArray(subArrayTwo);
+    // Create temp lists
+    QList<int> leftArray, rightArray;
 
-    // Copy data to temp vectors leftArray[] and rightArray[]
+    // Copy data to temp lists leftArray[] and rightArray[]
     for (auto i = 0; i < subArrayOne; i++)
-        leftArray[i] = array[left + i];
+        leftArray.append(array[left + i]);
     for (auto j = 0; j < subArrayTwo; j++)
-        rightArray[j] = array[mid + 1 + j];
+        rightArray.append(array[mid + 1 + j]);
 
     auto indexOfSubArrayOne = 0, // Initial index of first sub-array
         indexOfSubArrayTwo = 0; // Initial index of second sub-array
     int indexOfMergedArray = left; // Initial index of merged array
 
-    // Merge the temp vectors back into array[left..right]
+    // Merge the temp lists back into array[left..right]
     while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
         if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
             array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
@@ -132,7 +112,7 @@ void merge(std::vector<int>& array, int const left, int const mid, int const rig
     }
 }
 
-void mergeSort(std::vector<int>& array, int const begin, int const end)
+void mergeSort(QList<int>& array, int begin, int end)
 {
     if (begin >= end)
         return; // Returns recursively
@@ -144,20 +124,45 @@ void mergeSort(std::vector<int>& array, int const begin, int const end)
 }
 
 
+void MainWindow::on_Findit_clicked()
+{
+    key=ui->textEdit_2->toPlainText().toInt();
+
+    if(useBinarySearch)
+    {
+        std::chrono::steady_clock::time_point now =std::chrono::steady_clock::now();
+        BinarySearch(this->numbers,key,0,this->numbers.size()-1);
+        std::chrono::steady_clock::time_point then=std::chrono::steady_clock::now();
+        this->sortTime=std::chrono::duration_cast<std::chrono::nanoseconds>(then-now).count();
+    }
+    if(useNormalSearch)
+    {
+
+    }
+    QMessageBox::information(
+           this,
+           tr("Application Name"),
+           tr("An information message.") );
+
+}
+
+
+
+
+
 
 void MainWindow::on_MergeSort_clicked()
 {
 
-    string data = (ui->data->text()).toStdString();
-    vector<int> list = stringToIntVector(data);
 
     mergeSort(numbers,0,numbers.size()-1);
 
     QString output = "";
-    for(int i = 0;i<int(list.size());i++){
-        output+=QString::number(list.at(i));
+    for(int i = 0;i<int(numbers.size());i++){
+        output+=QString::number(numbers.at(i));
         output+=" ,";
     };
+    ui->outputSorted->setText(output);
 
 }
 
@@ -166,6 +171,7 @@ void MainWindow::on_MergeSort_clicked()
 void MainWindow::on_generate_clicked()
 {
     int size=(ui->size->text()).toInt();
+    Size = size;
     QString outputing = "";
 
     ui->DatasetSize->setText("The Dataset size is: " + size);
